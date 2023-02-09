@@ -5,7 +5,10 @@ function ProfileBox() {
   return (
     <Container>
       <ImageBox>
-        <img src="" alt="" />
+        <img
+          src="https://cdn.imweb.me/upload/S201910012ff964777e0e3/62f9a36ea3cea.jpg"
+          alt=""
+        />
       </ImageBox>
       <UserName>황보석</UserName>
     </Container>
@@ -22,10 +25,18 @@ const Container = styled.div`
 `;
 
 const ImageBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 200px;
   height: 200px;
   border-radius: 50%;
   background-color: #eee;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+  }
 `;
 
 const UserName = styled.p`
