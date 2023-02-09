@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { signIn } from "../../api/auth";
+import { getCurrentUser, signIn } from "../../api/auth";
 import Button from "../common/Button";
 import Input from "../common/Input";
 
