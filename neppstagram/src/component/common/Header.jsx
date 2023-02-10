@@ -1,6 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { AiOutlineSearch, AiOutlineUser, AiOutlineHome } from "react-icons/ai";
+import {
+  AiOutlineSearch,
+  AiOutlineUser,
+  AiOutlineHome,
+  AiOutlineEdit,
+} from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Input from "./Input";
 
@@ -30,6 +35,11 @@ function Header() {
             <li>
               <Link to="search">
                 <AiOutlineSearch />
+              </Link>
+            </li>
+            <li>
+              <Link to="post/edit">
+                <AiOutlineEdit />
               </Link>
             </li>
             <li>

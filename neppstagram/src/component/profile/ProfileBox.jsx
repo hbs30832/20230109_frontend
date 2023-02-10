@@ -21,7 +21,7 @@ function ProfileBox() {
     // 변환이 완료되면 실행될 코드(비동기)
     reader.onload = () => {
       setUrl(reader.result);
-      setFilename(e.target.files[0]);
+      setFilename(e.target.files[0].name);
     };
 
     // File 객체를 url로 변환
@@ -29,6 +29,8 @@ function ProfileBox() {
 
     setOpen(true);
   };
+
+  console.log(filename);
 
   const handleSubmit = async (file) => {
     const form = new FormData();
