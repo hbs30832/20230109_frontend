@@ -1,14 +1,17 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { createPost } from "../../api/auth";
 import Button from "../common/Button";
 import ImageCrop from "../common/ImageCrop";
 
 function PostEdit() {
   const [open, setOpen] = useState(false);
+  const [file, setFile] = useState(null);
   const [image, setImage] = useState({
     url: "",
     filename: "",
   });
+  const [body, setBody] = useState("");
   // 자른 파일 받아서 url, filename 업데이트
 
   const handleCrop = (e) => {
@@ -17,7 +20,7 @@ function PostEdit() {
     reader.onload = () => {
       setImage({
         url: reader.result,
-        filename: e.target.files[0].filename,
+        filename: e.target.files[0].name,
       });
       setOpen(true);
     };
@@ -26,6 +29,7 @@ function PostEdit() {
   };
 
   const handleImage = (file) => {
+    setFile(file);
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -37,6 +41,17 @@ function PostEdit() {
     };
 
     reader.readAsDataURL(file);
+  };
+
+  const handleSubmit = async () => {
+    const form = new FormData();
+
+    form.append("files", file);
+    form.append("body", body);
+
+    const data = await createPost(form);
+
+    console.log(data);
   };
 
   return (
@@ -52,8 +67,8 @@ function PostEdit() {
         <PreviewBox htmlFor="image">
           <img src={image.url} alt="" />
         </PreviewBox>
-        <InputBody />
-        <Button>Submit</Button>
+        <InputBody onChange={(e) => setBody(e.target.value)} />
+        <Button onClick={handleSubmit}>Submit</Button>
       </Container>
       {open && (
         <ImageCrop
