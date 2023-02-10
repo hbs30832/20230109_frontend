@@ -4,23 +4,24 @@ import styled from "styled-components";
 import Button from "./Button";
 import "cropperjs/dist/cropper.css";
 
-async function converToFile(url) {
+async function converToFile(url, filename) {
   const res = await fetch(url);
   const data = await res.blob();
   const ext = url.split(";")[0].split("/").pop(); // 마지막 확장자명 떼어내기
-  const filename = url.split("/").pop();
   const metadata = { type: `image/${ext}` };
 
   return new File([data], filename, metadata);
 }
 
 // src/component/common/ImageCrop.jsx
-function ImageCrop({ closeModal, originalUrl, onSubmit }) {
+function ImageCrop({ closeModal, originalUrl, onSubmit, filename }) {
   const [cropper, setCropper] = useState();
 
   const onClick = async () => {
     const url = cropper.getCroppedCanvas().toDataURL();
-    const file = await converToFile(url);
+    const file = await converToFile(url, filename);
+
+    console.log(filename);
 
     onSubmit(file);
   };

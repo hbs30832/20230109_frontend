@@ -9,16 +9,19 @@ import ImageCrop from "../common/ImageCrop";
 function ProfileBox() {
   const [open, setOpen] = useState(false);
   const [url, setUrl] = useState("");
+  const [filename, setFilename] = useState("");
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
 
   const handleInput = (e) => {
+    if (e.target.files.length === 0) return;
     const reader = new FileReader();
 
     // 변환이 완료되면 실행될 코드(비동기)
     reader.onload = () => {
       setUrl(reader.result);
+      setFilename(e.target.files[0]);
     };
 
     // File 객체를 url로 변환
@@ -39,8 +42,6 @@ function ProfileBox() {
     setOpen(false);
   };
 
-  console.log(user);
-
   return (
     <>
       <Container>
@@ -60,6 +61,7 @@ function ProfileBox() {
         <ImageCrop
           closeModal={() => setOpen(false)}
           originalUrl={url}
+          filename={filename}
           onSubmit={handleSubmit}
         />
       )}
