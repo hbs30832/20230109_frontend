@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { createPost } from "../../api/auth";
 import Button from "../common/Button";
@@ -12,6 +13,8 @@ function PostEdit() {
     filename: "",
   });
   const [body, setBody] = useState("");
+
+  const navigate = useNavigate();
   // 자른 파일 받아서 url, filename 업데이트
 
   const handleCrop = (e) => {
@@ -49,9 +52,9 @@ function PostEdit() {
     form.append("files", file);
     form.append("body", body);
 
-    const data = await createPost(form);
+    await createPost(form);
 
-    console.log(data);
+    navigate("/post");
   };
 
   return (

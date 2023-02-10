@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { authAxios } from "../../api/auth";
 
@@ -22,9 +23,11 @@ function PostList() {
     <Container>
       {posts.map((post) => (
         <li>
-          <ImageBox>
-            <img src={post.img_list[0]?.url} alt="" />
-          </ImageBox>
+          <Link to={"/post/" + post.id}>
+            <ImageBox>
+              <img src={post.img_list[0]?.url} alt="" />
+            </ImageBox>
+          </Link>
         </li>
       ))}
     </Container>

@@ -28,7 +28,7 @@ function Header() {
         <Gnb>
           <GnbList>
             <li>
-              <Link to="home">
+              <Link to="/post">
                 <AiOutlineHome />
               </Link>
             </li>
@@ -58,6 +58,11 @@ const Container = styled.header`
   background-color: #fff;
   border-bottom: 1px solid ${({ theme }) => theme.colors.bd_Color};
   padding: 10px 0;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 `;
 
 const Wrapper = styled.div`

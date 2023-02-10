@@ -55,3 +55,9 @@ export const createPost = async (form) => {
   let { data } = await authAxios.post("/posts", form);
   return data;
 };
+
+export const getPostById = async (id) => {
+  let { data } = await authAxios.get("/posts/" + id);
+
+  return data;
+};
