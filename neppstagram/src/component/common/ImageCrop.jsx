@@ -21,8 +21,6 @@ function ImageCrop({ closeModal, originalUrl, onSubmit, filename }) {
     const url = cropper.getCroppedCanvas().toDataURL();
     const file = await converToFile(url, filename);
 
-    console.log(filename);
-
     onSubmit(file);
   };
 

@@ -7,6 +7,7 @@ import Profile from "./component/page/Profile";
 import SignUp from "./component/page/SignUp";
 import PostDetail from "./component/post/PostDetail";
 import PostEdit from "./component/post/PostEdit";
+import PostList from "./component/post/PostList";
 
 export const Router = () => {
   return (
@@ -17,6 +18,7 @@ export const Router = () => {
         <Route path="home" element={<Home />} />
         <Route path="profile" element={<Profile />} />
         <Route path="post/*" element={<Post />}>
+          <Route path="" element={<PostList />} />
           <Route path="edit" element={<PostEdit />} />
           <Route path=":id" element={<PostDetail />} />
         </Route>
