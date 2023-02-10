@@ -1,18 +1,11 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import styled from "styled-components";
-import { fetchUser } from "../../redux/user";
 import LoginForm from "../login/LoginForm";
 
 // src/component/page/Login.jsx
 function Login() {
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
 
   // 로딩 중일 때는 반환 x => 순간적인 깜빡임 방지.
   if (user.isLoading) return;

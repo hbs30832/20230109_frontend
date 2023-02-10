@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getCurrentUser, signIn } from "../../api/auth";
+import { fetchUser } from "../../redux/user";
 import Button from "../common/Button";
 import Input from "../common/Input";
 
@@ -13,6 +15,7 @@ function LoginForm() {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleInputs = (e) => {
     const { name, value } = e.target;
@@ -24,11 +27,8 @@ function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = await signIn(inputs);
-
-    if (data.success) {
-      navigate("/home");
-    }
+    await signIn(inputs);
+    dispatch(fetchUser());
   };
 
   return (

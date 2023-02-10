@@ -1,17 +1,23 @@
+import { useState } from "react";
 import styled from "styled-components";
+import ImageCrop from "../common/ImageCrop";
 
 // src/component/profile/ProfileBox.jsx
 function ProfileBox() {
+  const [open, setOpen] = useState(false);
   return (
-    <Container>
-      <ImageBox>
-        <img
-          src="https://cdn.imweb.me/upload/S201910012ff964777e0e3/62f9a36ea3cea.jpg"
-          alt=""
-        />
-      </ImageBox>
-      <UserName>황보석</UserName>
-    </Container>
+    <>
+      <Container>
+        <ImageBox>
+          <img
+            src="https://cdn.imweb.me/upload/S201910012ff964777e0e3/62f9a36ea3cea.jpg"
+            alt=""
+          />
+        </ImageBox>
+        <UserName>황보석</UserName>
+      </Container>
+      <ImageCrop />
+    </>
   );
 }
 
