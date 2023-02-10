@@ -1,14 +1,6 @@
 import styled from "styled-components";
 
-function Button({ text, width, bgColor, color, type }) {
-  return (
-    <StyledButton width={width} bgColor={bgColor} color={color} type={type}>
-      {text}
-    </StyledButton>
-  );
-}
-
-const StyledButton = styled.button`
+const Button = styled.button`
   display: block;
   width: ${({ width }) => width || 200}px;
   background-color: ${({ theme, bgColor }) =>

@@ -33,8 +33,8 @@ function LoginForm() {
 
   return (
     <Container>
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <h2>Login</h2>
         <Input
           type="email"
           value={inputs.email}
@@ -50,8 +50,10 @@ function LoginForm() {
           placeholder="비밀번호를 입력하세요"
         />
         <BtnBox>
-          <Button text="Login" />
-          <Button text={<Link to="/signup">SingUp</Link>} />
+          <Button>Login</Button>
+          <Button type="button" onClick={() => navigate("/signup")}>
+            Signup
+          </Button>
         </BtnBox>
       </form>
     </Container>

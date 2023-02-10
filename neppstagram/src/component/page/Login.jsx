@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import styled from "styled-components";
-import { getCurrentUser } from "../../api/auth";
-import Redirect from "../common/Redirect";
+import { fetchUser } from "../../redux/user";
 import LoginForm from "../login/LoginForm";
 
 // src/component/page/Login.jsx
 function Login() {
-  const [user, setUser] = useState(null);
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getCurrentUser().then((data) => {
-      setUser(data);
-    });
-  }, []);
+    dispatch(fetchUser());
+  }, [dispatch]);
 
-  if (user) return <Redirect to="/home" />;
+  // 로딩 중일 때는 반환 x => 순간적인 깜빡임 방지.
+  if (user.isLoading) return;
+
+  // user 데이터가 있을 때는 홈컴포넌트로 리다이텍트.
+  if (user.data) return <Navigate to="/home" />;
 
   return (
     <Container>
@@ -28,6 +32,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #eee;
 `;
 
 export default Login;

@@ -29,7 +29,7 @@ function SignUpForm() {
 
     if (data.success) {
       alert("회원가입에 성공했습니다.");
-      navigate("/login");
+      navigate("/");
     }
   };
 
@@ -59,8 +59,10 @@ function SignUpForm() {
           placeholder="비밀번호를 입력하세요"
         />
         <BtnBox>
-          <Button text="SignUp" />
-          <Button text="Cancel" bgColor="red" type="button" />
+          <Button>SignUp</Button>
+          <Button type="button" bgColor="red" onClick={() => navigate("/")}>
+            Cancel
+          </Button>
         </BtnBox>
       </form>
     </Container>
