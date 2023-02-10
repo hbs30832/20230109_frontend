@@ -4,18 +4,27 @@ import styled from "styled-components";
 import Button from "./Button";
 import "cropperjs/dist/cropper.css";
 
-// src/component/common/ImageCrop.jsx
-function ImageCrop({ closeModal, originalUrl }) {
-  const [cropper, setCropper] = useState();
-  const [croppedData, setCroppedData] = useState();
+async function converToFile(url) {
+  const res = await fetch(url);
+  const data = await res.blob();
+  const ext = url.split(";")[0].split("/").pop(); // 마지막 확장자명 떼어내기
+  const filename = url.split("/").pop();
+  const metadata = { type: `image/${ext}` };
 
-  const getCroppedData = () => {
-    setCroppedData(cropper.getCroppedCanvas().toDataURL());
+  return new File([data], filename, metadata);
+}
+
+// src/component/common/ImageCrop.jsx
+function ImageCrop({ closeModal, originalUrl, onSubmit }) {
+  const [cropper, setCropper] = useState();
+
+  const onClick = async () => {
+    const url = cropper.getCroppedCanvas().toDataURL();
+    const file = await converToFile(url);
+
+    onSubmit(file);
   };
 
-  console.log(croppedData);
-
-  console.log(cropper);
   return (
     <Background>
       <Container>
@@ -29,15 +38,12 @@ function ImageCrop({ closeModal, originalUrl }) {
           aspectRatio={1}
         ></Cropper>
       </Container>
-      <Button width={100} onClick={getCroppedData}>
+      <Button width={100} onClick={onClick}>
         crop
       </Button>
-      <Button onClick={closeModal} width={100} bgColor="#bbb">
-        Close
+      <Button width={100} bgColor="#bbb" onClick={closeModal}>
+        cancel
       </Button>
-      <PreviewBox>
-        <img src={croppedData} alt="" />
-      </PreviewBox>
     </Background>
   );
 }

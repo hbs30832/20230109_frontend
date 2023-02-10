@@ -1,11 +1,17 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { patchProfile } from "../../api/auth";
+import { fetchUser } from "../../redux/user";
 import ImageCrop from "../common/ImageCrop";
 
 // src/component/profile/ProfileBox.jsx
 function ProfileBox() {
   const [open, setOpen] = useState(false);
   const [url, setUrl] = useState("");
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
 
   const handleInput = (e) => {
     const reader = new FileReader();
@@ -21,6 +27,20 @@ function ProfileBox() {
     setOpen(true);
   };
 
+  const handleSubmit = async (file) => {
+    const form = new FormData();
+
+    form.append("profile", file);
+
+    await patchProfile(form);
+
+    dispatch(fetchUser());
+
+    setOpen(false);
+  };
+
+  console.log(user);
+
   return (
     <>
       <Container>
@@ -32,12 +52,16 @@ function ProfileBox() {
           onChange={handleInput}
         />
         <ImageBox htmlFor="image">
-          <img src={url} alt="" />
+          <img src={user.data.profile_url} alt="" />
         </ImageBox>
-        <UserName>황보석</UserName>
+        <UserName>{user.data.name}</UserName>
       </Container>
       {open && (
-        <ImageCrop closeModal={() => setOpen(false)} originalUrl={url} />
+        <ImageCrop
+          closeModal={() => setOpen(false)}
+          originalUrl={url}
+          onSubmit={handleSubmit}
+        />
       )}
     </>
   );
